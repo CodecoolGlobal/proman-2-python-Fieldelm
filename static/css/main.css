@@ -1,3 +1,13 @@
 #boards {
     background-color: green;
 }
+
+.board-container{
+    padding: 10px;
+    background-color: #525252;
+
+}
+.board{
+        display: flex;
+    align-items: center;
+}
