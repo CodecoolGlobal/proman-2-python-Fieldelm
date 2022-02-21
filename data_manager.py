@@ -3,6 +3,7 @@ import psycopg2
 import psycopg2.extras
 
 
+
 def establish_connection(connection_data=None):
     """
     Create a database connection based on the :connection_data: parameter
