@@ -1,0 +1,52 @@
+button.open-modal{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+ button.close-modal{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.35s ease-in;
+}
+
+.modal-dialog {
+  border-radius: 5px;
+  background: teal;
+  overflow: auto;
+  cursor: default;
+}
+
+.modal-dialog > * {
+  padding: 1rem;
+}
+
+.modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.35s ease-in;
+}
+
+.modal.is-visible {
+  visibility: visible;
+  opacity: 100%;
+}
+
