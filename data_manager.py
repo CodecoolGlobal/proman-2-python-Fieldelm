@@ -4,6 +4,7 @@ import psycopg2.extras
 import bcrypt
 
 
+
 def establish_connection(connection_data=None):
     """
     Create a database connection based on the :connection_data: parameter

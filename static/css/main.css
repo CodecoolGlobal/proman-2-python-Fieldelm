@@ -2,6 +2,11 @@
     background-color: green;
 }
 
+.board{
+        display: flex;
+    align-items: center;
+}
+
 .board-container {
     background-color: teal;
     margin: 10px;
