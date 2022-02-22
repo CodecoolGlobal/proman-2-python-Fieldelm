@@ -39,17 +39,6 @@
     {% endif %}
 </div>
 <div class="container">
-    <button type="button" class="open-modal" data-open="new-board">Create New Board</button>
-    <div class="modal" id="new-board">
-        <div class="modal-dialog">
-            <section class="modal-content">
-                <form method="POST" action="/api/boards/create">
-                    <label for="board-title">Board Name:</label>
-                    <input name="board-title" id="board-title" type="text">
-                    <button type="submit" >Save</button>
-                </form>
-            </section>
-        </div>
     </div>
     <div id="root"></div>
 </body>

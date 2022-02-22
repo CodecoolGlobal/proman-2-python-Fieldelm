@@ -14,7 +14,7 @@ load_dotenv()
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-@app.route("/",methods=['POST','GET'])
+@app.route("/", methods = ['POST', 'GET'])
 def index():
     """
     This is a one-pager which shows all the boards and cards
@@ -43,12 +43,11 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
-@app.route("/api/boards/create",methods=['POST','GET'])
+@app.route("/api/create/board/", methods = ['POST'])
 def create_board():
-    title = request.form.get('board-title')
-    print(title)
-    queries.create_board(title, session.get('user_id', default=0))
-    return redirect('/')
+    title = request.json['title']
+    queries.create_board(title, session.get('user_id', default = 0))
+    return redirect("/")
 
 
 @app.route('/login', methods = ['GET', 'POST'])

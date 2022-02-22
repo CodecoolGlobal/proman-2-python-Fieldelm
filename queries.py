@@ -33,8 +33,8 @@ def get_boards():
 
 
 def create_board(title, creator_id):
-    data_manager.execute_select("""
-    INSERT INTO boards(title, creator_id) VALUES (%s,%s) RETURNING 1
+    data_manager.execute_insert("""
+    INSERT INTO boards(title, creator_id) VALUES (%s,%s)
     """, (title, creator_id))
 
 
