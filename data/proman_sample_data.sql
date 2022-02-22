@@ -19,6 +19,7 @@ SET default_with_oids = false;
 
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS cards;
 
 ---
@@ -32,7 +33,8 @@ CREATE TABLE statuses (
 
 CREATE TABLE boards (
     id          SERIAL PRIMARY KEY  NOT NULL,
-    title       VARCHAR(200)        NOT NULL
+    title       VARCHAR(200)        NOT NULL,
+    creator_id  INTEGER             NOT NULL
 );
 
 CREATE TABLE cards (
@@ -41,6 +43,12 @@ CREATE TABLE cards (
     status_id   INTEGER             NOT NULL,
     title       VARCHAR (200)       NOT NULL,
     card_order  INTEGER             NOT NULL
+);
+
+CREATE TABLE users (
+    id          SERIAL PRIMARY KEY  NOT NULL,
+    username    VARCHAR (30)        NOT NULL,
+    password    VARCHAR (200)       NOT NULL
 );
 
 ---
@@ -52,8 +60,8 @@ INSERT INTO statuses(title) VALUES ('in progress');
 INSERT INTO statuses(title) VALUES ('testing');
 INSERT INTO statuses(title) VALUES ('done');
 
-INSERT INTO boards(title) VALUES ('Board 1');
-INSERT INTO boards(title) VALUES ('Board 2');
+INSERT INTO boards(title, creator_id) VALUES ('Board 1', 1);
+INSERT INTO boards(title, creator_id) VALUES ('Board 2', 1);
 
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 1, 'new card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 1, 'new card 2', 2);
@@ -68,6 +76,8 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 3, 'planning', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 4, 'done card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 4, 'done card 1', 2);
 
+INSERT INTO users (username,password) VALUES ('test@test.com', '$2a$12$Wbe4iNNr84z6mvxWCx9Fyu3PNyY7GW6P9ljrMiwtBirSEwPZGGugS');
+
 ---
 --- add constraints
 ---
@@ -77,3 +87,6 @@ ALTER TABLE ONLY cards
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id);
+
+ALTER TABLE ONLY boards
+    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (creator_id) REFERENCES users(id);
