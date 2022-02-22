@@ -1,3 +1,66 @@
 #boards {
     background-color: green;
 }
+
+.board{
+        display: flex;
+    align-items: center;
+}
+
+.board-container {
+    background-color: teal;
+    margin: 10px;
+}
+
+body, html {
+    height: 100%;
+    margin: 0px;
+
+    background-color: white;
+    color: black;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.background {
+  /* The image used */
+  /*background-image: url("some-image.jpg");*/
+    background: lightblue;
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login {
+    text-align: center;
+}
+
+.container {
+    padding: 10px;
+}
+
+.header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: white;
+    text-align: right;
+    font-size: 16px;
+}
+
+
+.header button {
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+form {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+}

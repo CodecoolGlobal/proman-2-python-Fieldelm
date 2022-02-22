@@ -21,5 +21,22 @@ export let boardsManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    cardsManager.loadCards(boardId);
+    let state = clickEvent.target.dataset.state
+    const board = document.querySelector(`[data-board-id="${boardId}"]`)
+    let title = board.firstChild.textContent
+    console.log(state)
+    if (state === "closed") {
+        clickEvent.target.dataset.state = "open"
+        clickEvent.target.textContent='Hide Cards'
+        board.innerHTML = ""
+        board.textContent = title
+        cardsManager.loadCards(boardId);
+    }
+    else if (state==="open"){
+        clickEvent.target.dataset.state = "closed"
+        clickEvent.target.textContent='Show Cards'
+        board.innerHTML = ""
+        board.textContent = title
+    }
+
 }
