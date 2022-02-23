@@ -44,14 +44,12 @@ function  updateTitle(card) {
         oldTitleDiv.innerText = ""
         let newTitleInput = document.createElement("input");
         newTitleInput.value = oldTitle;
-        card.type = "submit"
         card.appendChild(newTitleInput);
-
         newTitleInput.addEventListener("keydown", ev => {
             if (ev.code === 'Enter'){
 
                 oldTitleDiv.innerText = newTitleInput.value
-                newTitleInput.remove()
+                let renamedCard = {"title" : newTitleInput.value, 'id': card.id}
 
             }
         })

@@ -30,6 +30,9 @@ export let dataHandler = {
         card.title = cardTitle;
         apiPost('/api/cards/create', card);
     },
+    renameCard : async function (card){
+        return await apiPut("/api/update/card/", card)
+    }
 };
 
 async function apiGet(url) {
@@ -55,7 +58,14 @@ async function apiPost(url, payload) {
 async function apiDelete(url) {
 }
 
-async function apiPut(url) {
+async function apiPut(url, payload) {
+    let response = await fetch(url, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    }).then(res => {
+        console.log("Request complete! response:", res);
+    })
 }
 
 async function apiPatch(url) {
