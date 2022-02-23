@@ -32,6 +32,12 @@ def get_boards():
     )
 
 
+def create_board(title, creator_id):
+    data_manager.execute_insert("""
+    INSERT INTO boards(title, creator_id) VALUES (%s,%s)
+    """, (title, creator_id))
+
+
 def get_cards_for_board(board_id):
     matching_cards = data_manager.execute_select(
         """
@@ -96,6 +102,4 @@ def get_usernames():
         ;
         """
     )
-
-
 

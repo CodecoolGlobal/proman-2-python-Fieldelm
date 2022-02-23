@@ -1,11 +1,11 @@
 import os
+
+import bcrypt
 import psycopg2
 import psycopg2.extras
-import bcrypt
 
 
-
-def establish_connection(connection_data=None):
+def establish_connection(connection_data = None):
     """
     Create a database connection based on the :connection_data: parameter
     :connection_data: Connection string attributes
@@ -27,7 +27,7 @@ def establish_connection(connection_data=None):
         return conn
 
 
-def get_connection_data(db_name=None):
+def get_connection_data(db_name = None):
     """
     Give back a properly formatted dictionary based on the environment variables values which are started
     with :MY__PSQL_: prefix
@@ -44,7 +44,7 @@ def get_connection_data(db_name=None):
     }
 
 
-def execute_select(statement, variables=None, fetchall=True):
+def execute_select(statement, variables = None, fetchall = True):
     """
     Execute SELECT statement optionally parameterized.
     Use fetchall=False to get back one value (fetchone)
@@ -55,7 +55,7 @@ def execute_select(statement, variables=None, fetchall=True):
     variables:  optional parameter dict, optional parameter fetchall"""
     result_set = []
     with establish_connection() as conn:
-        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
+        with conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) as cursor:
             cursor.execute(statement, variables)
             result_set = cursor.fetchall() if fetchall else cursor.fetchone()
     return result_set
@@ -73,17 +73,24 @@ def execute_insert(statement, variables=None):
             cursor.execute(statement, variables)
 
 
+def execute_insert(statement, variables = None):
+    with establish_connection() as conn:
+        with conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) as cursor:
+            cursor.execute(statement, variables)
+
+
 def connection_handler(function):
     def wrapper(*args, **kwargs):
         connection = establish_connection()
         # we set the cursor_factory parameter to return with a RealDictCursor cursor (cursor which provide dictionaries)
-        dict_cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        dict_cur = connection.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         ret_value = function(dict_cur, *args, **kwargs)
         dict_cur.close()
         connection.close()
         return ret_value
 
     return wrapper
+
 
 # FOR USER REGISTRATION AND LOGIN:
 

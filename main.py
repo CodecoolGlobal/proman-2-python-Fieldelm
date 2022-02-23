@@ -1,9 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from dotenv import load_dotenv
-from util import json_response
 import mimetypes
-import queries
+
 import data_manager
+import queries
+from util import json_response
 
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
@@ -11,7 +12,8 @@ load_dotenv()
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-@app.route("/")
+
+@app.route("/", methods = ['POST', 'GET'])
 def index():
     """
     This is a one-pager which shows all the boards and cards
@@ -49,6 +51,14 @@ def create_card_for_board():
 
 
 @app.route('/login', methods=['GET', 'POST'])
+@app.route("/api/create/board/", methods = ['POST'])
+def create_board():
+    title = request.json['title']
+    queries.create_board(title, session.get('user_id', default = 0))
+    return redirect("/")
+
+
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user_input_username = request.form.get("username")
@@ -74,6 +84,7 @@ def login():
     return render_template('login.html',
                             username=session.get('username', 0),
                             user_id=session.get('user_id', 0))
+
 
 @app.route('/logout')
 def logout():
@@ -108,7 +119,6 @@ def registration():
                 alert_message = "taken"
 
     return render_template('registration.html', alert_message = alert_message, username = user_input_username)
-
 
 
 def main():
