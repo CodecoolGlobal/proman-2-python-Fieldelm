@@ -19,9 +19,10 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    return render_template('index.html',
-                           username = session.get('username', 0),
-                           user_id = session.get('user_id', 0))
+    # return render_template('index.html',
+    #                        username = session.get('username', 0),
+    #                        user_id = session.get('user_id', 0))
+    return render_template('design.html')
 
 
 @app.route("/api/boards")
@@ -31,6 +32,15 @@ def get_boards():
     All the boards
     """
     return queries.get_boards()
+
+@app.route("/api/statuses")
+@json_response
+def get_statuses():
+    """
+    All the boards
+    """
+    return queries.get_statuses()
+
 
 
 @app.route("/api/boards/<int:board_id>/cards/")

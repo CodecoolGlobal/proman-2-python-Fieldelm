@@ -20,14 +20,30 @@ export function htmlFactory(template) {
     };
 }
 
-function boardBuilder(board) {
-    return `<div class="board-container">
-                <div class="board" data-board-id=${board.id}>${board.title}</div>
-                <button class="toggle-board-button" data-state="closed" data-board-id="${board.id}">Show Cards</button>
-            </div>`;
+function boardBuilder(board, columns) {
+
+    let header = ` <div class="board-header"><span class="board-title">${board.title}</span>
+                <button class="board-add">Add Card</button>
+                <button class="board-toggle" data-boardId="${board.id}" data-state="open">Close</button>
+            </div>`
+    let section = `<section class="board" id="board${board.id}">${header}<div class="board-columns">`
+    for (let column of columns) {
+        section = section + `
+                <div class="board-column">
+                    <div class="board-column-title">${column.title}</div>
+                    <div class="board-column-content" data-boardId="${board.id}" data-statusId id="board${board.id}column${column.id}">
+                        </div>
+                    </div>`
+    }
+    return section + `</div></section>`
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
+
+    return `<div class="card" id="card${card.id}">
+            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+            <div class="card-title">${card.title}</div>
+            </div>`
+    // return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
 }
 

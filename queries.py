@@ -32,6 +32,10 @@ def get_boards():
     )
 
 
+def get_statuses():
+    return data_manager.execute_select("""SELECT * FROM statuses""")
+
+
 def create_board(title, creator_id):
     data_manager.execute_insert("""
     INSERT INTO boards(title, creator_id) VALUES (%s,%s)

@@ -7,6 +7,7 @@ export let dataHandler = {
     },
     getStatuses: async function () {
         // the statuses are retrieved and then the callback function is called with the statuses
+        return await apiGet("/api/statuses");
     },
     getStatus: async function (statusId) {
         // the status is retrieved and then the callback function is called with the status
@@ -38,7 +39,7 @@ async function apiGet(url) {
 async function apiPost(url, payload) {
     await fetch(url, {
         method: "POST",
-         headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     }).then(res => {
         console.log("Request complete! response:", res);
