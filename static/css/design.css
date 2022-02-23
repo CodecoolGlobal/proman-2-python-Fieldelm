@@ -104,7 +104,6 @@ section.board{
 }
 
 .card{
-    position: relative;
     background: #222;
     color: #fff;
     border-radius: var(--border-radius);
@@ -139,4 +138,13 @@ section.board{
 
 .card-title{
     padding-right: 16px;
+}
+.hidden{
+    position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+    visibility: hidden;
 }

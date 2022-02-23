@@ -61,12 +61,18 @@ def create_card_for_board():
     return "card successfully created"
 
 
-@app.route('/login', methods=['GET', 'POST'])
 @app.route("/api/create/board/", methods = ['POST'])
 def create_board():
     title = request.json['title']
     queries.create_board(title, session.get('user_id', default = 0))
     return redirect("/")
+
+
+@app.route("/api/update/board/", methods = ['PUT'])
+def update_board():
+    id = request.json['board_id']
+    title = request.json['title']
+    queries.update_board(title, id)
 
 
 @app.route('/login', methods = ['GET', 'POST'])
