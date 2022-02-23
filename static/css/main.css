@@ -52,6 +52,12 @@ body, html {
     font-size: 16px;
 }
 
+.add-new-card {
+    background-color: black;
+    padding: 4px;
+}
+
+
 .header button {
     float: right;
     margin-right: 5px;

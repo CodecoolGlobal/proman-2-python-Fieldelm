@@ -1,7 +1,6 @@
-import mimetypes
-
+from flask import Flask, render_template, url_for, request, redirect, session
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, session, url_for
+import mimetypes
 
 import data_manager
 import queries
@@ -23,6 +22,7 @@ def index():
     #                        username = session.get('username', 0),
     #                        user_id = session.get('user_id', 0))
     return render_template('design.html')
+
 
 
 @app.route("/api/boards")
@@ -53,6 +53,15 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
+@app.route("/api/cards/create", methods=["POST"])
+@json_response
+def create_card_for_board():
+
+    queries.create_card_for_board_status(request.json)
+    return "card successfully created"
+
+
+@app.route('/login', methods=['GET', 'POST'])
 @app.route("/api/create/board/", methods = ['POST'])
 def create_board():
     title = request.json['title']
@@ -80,12 +89,12 @@ def login():
             return redirect(url_for('index'))
         else:
             return render_template('login_problem.html',
-                                   username = session.get('username', 0),
-                                   user_id = session.get('user_id', 0))
+                            username=session.get('username', 0),
+                            user_id=session.get('user_id', 0))
 
     return render_template('login.html',
-                           username = session.get('username', 0),
-                           user_id = session.get('user_id', 0))
+                            username=session.get('username', 0),
+                            user_id=session.get('user_id', 0))
 
 
 @app.route('/logout')
@@ -124,11 +133,11 @@ def registration():
 
 
 def main():
-    app.run(debug = True)
+    app.run(debug=True)
 
     # Serving the favicon
     with app.app_context():
-        app.add_url_rule('/favicon.ico', redirect_to = url_for('static', filename = 'favicon/favicon.ico'))
+        app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
 
 
 if __name__ == '__main__':
