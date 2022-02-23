@@ -29,8 +29,8 @@ button.open-modal{
 }
 
 .modal-dialog {
+ background: rgba(221, 221, 221, 0.28) url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
   border-radius: 5px;
-  background: teal;
   overflow: auto;
   cursor: default;
 }

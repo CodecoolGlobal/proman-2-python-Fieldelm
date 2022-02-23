@@ -6,12 +6,14 @@ import {cardsManager} from "./cardsManager.js";
 export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
+        const statuses = await dataHandler.getStatuses();
         for (let board of boards) {
             const boardBuilder = htmlFactory(htmlTemplates.board);
-            const content = boardBuilder(board);
-            domManager.addChild("#root", content);
+            const content = boardBuilder(board, statuses);
+            domManager.addChild(".board-container", content);
+            cardsManager.loadCards(board['id']);
             domManager.addEventListener(
-                `.toggle-board-button[data-board-id="${board.id}"]`,
+                `button.board-toggle[data-boardId="${board['id']}"]`,
                 "click",
                 showHideButtonHandler
             );
@@ -19,14 +21,16 @@ export let boardsManager = {
     },
 };
 const reloadBoards = () => {
-    let root = document.querySelector("#root")
+    let root = document.querySelector(".board-container")
     root.innerHTML = ""
     boardsManager.loadBoards()
 }
 export let modalManager = {
     initNewBoardModal: function () {
+        let h1=document.querySelector('h1')
         let modal = document.createElement("div")
-        document.body.appendChild(modal)
+        h1.after(modal)
+        modal.classList.add('new-board')
         modal.innerHTML = `<button type="button" class="open-modal" data-open="new-board">Create New Board</button>
     <div class="modal" id="new-board">
         <div class="modal-dialog">
@@ -45,6 +49,7 @@ export let modalManager = {
         })
     },
     initModalButtons: function () {
+        debugger
         const openEls = document.querySelectorAll("[data-open]");
         for (const el of openEls) {
             el.addEventListener("click", function () {
@@ -62,26 +67,19 @@ export let modalManager = {
 }
 
 function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.target.dataset.boardId;
     let state = clickEvent.target.dataset.state
-    const board = document.querySelector(`[data-board-id="${boardId}"]`)
-    let title = board.firstChild.textContent
+    let target = clickEvent.target
     console.log(state)
     if (state === "closed") {
-        clickEvent.target.dataset.state = "open"
-        clickEvent.target.textContent = 'Hide Cards'
-        board.innerHTML = ""
-        board.textContent = title
-        cardsManager.loadCards(boardId);
-
-        // ADD "ADD NEW CARD" BUTTON TO BOARD:
-        addNewCardButtonToBoard (board, boardId)
-
-      } else if (state === "open") {
-        clickEvent.target.dataset.state = "closed"
-        clickEvent.target.textContent = 'Show Cards'
-        board.innerHTML = ""
-        board.textContent = title
+        target.parentElement.parentElement.children[1].classList.toggle("hidden")
+        target.dataset.state = "open"
+        target.textContent="Close"
+      // ADD "ADD NEW CARD" BUTTON TO BOARD:
+        //addNewCardButtonToBoard (board, boardId)
+    } else if (state === "open") {
+        target.parentElement.parentElement.children[1].classList.toggle("hidden")
+        target.dataset.state = "closed"
+        target.textContent="Open"
     }
 }
 
