@@ -31,6 +31,10 @@ function showHideButtonHandler(clickEvent) {
         board.innerHTML = ""
         board.textContent = title
         cardsManager.loadCards(boardId);
+
+        // ADD "ADD NEW CARD" BUTTON TO BOARD:
+        addNewCardButtonToBoard (board, boardId)
+
     }
     else if (state==="open"){
         clickEvent.target.dataset.state = "closed"
@@ -38,5 +42,33 @@ function showHideButtonHandler(clickEvent) {
         board.innerHTML = ""
         board.textContent = title
     }
-
 }
+
+function addNewCardButtonToBoard (board, boardId) {
+    const divForAddCard = document.createElement("div")
+    divForAddCard.classList = "add-new-card"
+    const addCardButton = document.createElement("button");
+    addCardButton.textContent = "Add new card";
+    addCardButton.classList = "add-new-card-button"
+    addCardButton.setAttribute("data-board-id", `${boardId}`)
+    const inputField = document.createElement("input");
+    inputField.type = "text";
+
+    board.appendChild(divForAddCard);
+    divForAddCard.appendChild(inputField);
+    divForAddCard.appendChild(addCardButton);
+
+    // ADD EVENTLISTENER TO "NEW CARD" BUTTON:
+    addCardButton.addEventListener('click', (e) => {
+        const statusId = 1;
+        const title = addCardButton.previousElementSibling.value;
+        console.log(title)
+        dataHandler.createNewCard(title, boardId, statusId);
+        let cardsToDelete = board.querySelectorAll(".card")
+        for (const card of cardsToDelete) {
+            card.remove();
+        }
+        setTimeout(() => {cardsManager.loadCards(boardId); 2000})
+    })
+}
+

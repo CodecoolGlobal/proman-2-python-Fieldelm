@@ -40,6 +40,14 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
+@app.route("/api/cards/create", methods=["POST"])
+@json_response
+def create_card_for_board():
+
+    queries.create_card_for_board_status(request.json)
+    return "card successfully created"
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
