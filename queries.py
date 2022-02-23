@@ -1,6 +1,7 @@
 import data_manager
 
 
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -30,6 +31,12 @@ def get_boards():
         ;
         """
     )
+
+def create_card(board_id, title):
+    data_manager.execute_insert("""
+    INSERT INTO cards (board_id, status_id, title, card_order)
+     VALUES (%(bo_id)s, 1, %(ttl)s,(SELECT MAX(card_order)+1 FROM cards WHERE board_id = %(bo_id)s))""",
+                                ({'bo_id': board_id, 'ttl': title}))
 
 
 def create_board(title, creator_id):
@@ -62,7 +69,15 @@ def create_card_for_board_status(card):
             "title": card['title']
         }
     )
-
+def edit_card_title(card, new_title):
+    data_manager.execute_insert(
+        """UPDATE cards SET title = %(title)s
+        WHERE id = %(card_id)s;""",
+        {
+            "card_id" : card['cardId'],
+            'title': new_title
+        }
+    )
 
 # FOR USER REGISTRATION AND LOGIN:
 

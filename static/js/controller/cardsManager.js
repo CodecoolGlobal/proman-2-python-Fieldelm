@@ -15,9 +15,25 @@ export let cardsManager = {
                 "click",
                 deleteButtonHandler
             );
+            domManager.addEventListener(
+                `.card[data-card-id="${card.id}"]`,
+                "click", (e)=> {
+                    updateTitle(e.currentTarget)
+                }
+            );
         }
     },
 };
 
 function deleteButtonHandler(clickEvent) {
+
+}
+function  updateTitle(card){
+    const inputField = document.createElement("input");
+    inputField.type = "text";
+    card.appendChild(inputField);
+    const newTitle = inputField.value
+    console.log(newTitle)
+
+
 }
