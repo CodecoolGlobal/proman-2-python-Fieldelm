@@ -43,6 +43,7 @@ export let modalManager = {
         let textbox = document.querySelector('#board-title')
         domManager.addEventListener('#save-new-board', 'click', () => {
             let board = {"title": textbox.value}
+            textbox.value=""
             document.querySelector(".modal.is-visible").classList.remove("is-visible");
             dataHandler.createNewBoard(board).then(reloadBoards)
 

@@ -29,7 +29,7 @@ button.open-modal{
 }
 
 .modal-dialog {
- background: rgba(221, 221, 221, 0.28) url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+ background: rgba(221, 221, 221, 0.04) url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
   border-radius: 5px;
   overflow: auto;
   cursor: default;

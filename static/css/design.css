@@ -104,7 +104,6 @@ section.board{
 }
 
 .card{
-    position: relative;
     background: #222;
     color: #fff;
     border-radius: var(--border-radius);
