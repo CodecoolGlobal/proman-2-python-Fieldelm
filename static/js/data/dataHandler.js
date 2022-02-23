@@ -30,6 +30,9 @@ export let dataHandler = {
         card.title = cardTitle;
         apiPost_2('/api/cards/create', card);
     },
+    deleteCard: async function (cardId) {
+        return await apiGet(`/api/cards/${cardId}/delete/`);
+    },
 };
 
 async function apiGet(url) {

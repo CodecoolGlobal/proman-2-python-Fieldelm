@@ -67,6 +67,17 @@ def create_card_for_board_status(card):
         }
     )
 
+def delete_card(card_id):
+    data_manager.execute_insert(
+        """
+        DELETE FROM cards 
+        WHERE id=%(card_id)s 
+        """,
+        {
+            "card_id": card_id
+        }
+    )
+
 
 # FOR USER REGISTRATION AND LOGIN:
 

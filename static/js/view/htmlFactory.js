@@ -40,8 +40,8 @@ function boardBuilder(board, columns) {
 
 function cardBuilder(card) {
 
-    return `<div class="card" id="card${card.id}">
-            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+    return `<div class="card" data-id="${card.id}">
+            <div class="card-remove" data-id="${card.id}"><i class="fas fa-trash-alt"></i></div>
             <div class="card-title">${card.title}</div>
             </div>`
     // return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;

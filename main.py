@@ -53,10 +53,18 @@ def get_cards_for_board(board_id: int):
 @app.route("/api/cards/create", methods=["POST"])
 @json_response
 def create_card_for_board():
-    print("before querie")
     queries.create_card_for_board_status(request.json)
-    print("after querie")
     return "card successfully created"
+
+
+@app.route("/api/cards/<int:card_id>/delete/")
+@json_response
+def delete_card_(card_id: int):
+    """
+    All cards that belongs to a board
+    :param board_id: id of the parent board
+    """
+    return queries.delete_card(card_id)
 
 
 
