@@ -12,6 +12,7 @@ export let boardsManager = {
             const content = boardBuilder(board, statuses);
             domManager.addChild(".board-container", content);
             cardsManager.loadCards(board['id']);
+            domManager.addEventListener(`span.board-title[data-boardId="${board['id']}"]`, 'click',renameBoard)
             domManager.addEventListener(
                 `button.board-toggle[data-boardId="${board['id']}"]`,
                 "click",
@@ -50,7 +51,6 @@ export let modalManager = {
         })
     },
     initModalButtons: function () {
-        debugger
         const openEls = document.querySelectorAll("[data-open]");
         for (const el of openEls) {
             el.addEventListener("click", function () {
@@ -111,4 +111,19 @@ function addNewCardButtonToBoard (board, boardId) {
         setTimeout(() => {cardsManager.loadCards(boardId)}, 100);
         addCardButton.previousElementSibling.value = "";
     })
+}
+
+const renameBoard = (e) => {
+    let input = document.createElement('input')
+    input.value = e.target.textContent
+    let button = document.createElement('button')
+    button.textContent = "Save"
+    e.target.parentElement.prepend(button)
+    e.target.parentElement.prepend(input)
+    e.target.classList.add('hidden')
+    console.log(e.target.dataset.boardid)
+    button.addEventListener('click', ()=> {
+        let board = {'title' : input.value, 'board_id': e.target.dataset.boardid}
+        dataHandler.updateBoard(board).then(reloadBoards)})
+
 }
