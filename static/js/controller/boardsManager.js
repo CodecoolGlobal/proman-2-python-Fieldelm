@@ -109,6 +109,7 @@ function addNewCardButtonToBoard (board, boardId) {
         for (const card of cardsToDelete) {
             card.remove();
         }
-        setTimeout(() => {cardsManager.loadCards(boardId); 2000})
+        setTimeout(() => {cardsManager.loadCards(boardId)}, 100);
+        addCardButton.previousElementSibling.value = "";
     })
 }
