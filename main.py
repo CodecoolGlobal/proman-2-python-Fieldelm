@@ -15,13 +15,10 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route("/", methods = ['POST', 'GET'])
 def index():
-    """
-    This is a one-pager which shows all the boards and cards
-    """
-    # return render_template('index.html',
-    #                        username = session.get('username', 0),
-    #                        user_id = session.get('user_id', 0))
-    return render_template('design.html')
+
+    return render_template('design.html',
+                           username = session.get('username', 0),
+                           user_id = session.get('user_id', 0))
 
 
 
@@ -56,12 +53,13 @@ def get_cards_for_board(board_id: int):
 @app.route("/api/cards/create", methods=["POST"])
 @json_response
 def create_card_for_board():
-
+    print("before querie")
     queries.create_card_for_board_status(request.json)
+    print("after querie")
     return "card successfully created"
 
 
-@app.route('/login', methods=['GET', 'POST'])
+
 @app.route("/api/create/board/", methods = ['POST'])
 def create_board():
     title = request.json['title']

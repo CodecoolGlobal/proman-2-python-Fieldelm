@@ -140,3 +140,23 @@ section.board{
 .card-title{
     padding-right: 16px;
 }
+
+/*---------------HEADER---------------*/
+.header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: white;
+    text-align: right;
+    font-size: 16px;
+}
+
+.add-new-card {
+    background-color: black;
+    padding: 4px;
+}
+
+.header button {
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+}

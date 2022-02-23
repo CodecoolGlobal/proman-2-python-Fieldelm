@@ -28,7 +28,7 @@ export let dataHandler = {
         card.boardId = boardId;
         card.statusId = statusId;
         card.title = cardTitle;
-        apiPost('/api/cards/create', card);
+        apiPost_2('/api/cards/create', card);
     },
 };
 
@@ -50,6 +50,19 @@ async function apiPost(url, payload) {
         console.log("Request complete! response:", res);
     })
 
+}
+
+async function apiPost_2(url, payload) {
+  let response = await fetch(url,{
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+      'Content-Type': 'application/json'
+    }});
+  if(response.status === 200){
+    let data = response.json();
+    console.log(data);
+  }
 }
 
 async function apiDelete(url) {

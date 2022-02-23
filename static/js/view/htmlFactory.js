@@ -23,7 +23,7 @@ export function htmlFactory(template) {
 function boardBuilder(board, columns) {
 
     let header = ` <div class="board-header"><span class="board-title">${board.title}</span>
-                <button class="board-add">Add Card</button>
+                <button class="board-add" data-boardId="${board.id}">Add Card</button>
                 <button class="board-toggle" data-boardId="${board.id}" data-state="open">Close</button>
             </div>`
     let section = `<section class="board" id="board${board.id}">${header}<div class="board-columns">`
