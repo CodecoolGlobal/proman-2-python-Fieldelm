@@ -43,6 +43,10 @@ def create_board(title, creator_id):
     """, (title, creator_id))
 
 
+def get_all_cards():
+    return data_manager.execute_select("""SELECT * FROM cards""")
+
+
 def get_cards_for_board(board_id):
     matching_cards = data_manager.execute_select(
         """
@@ -114,4 +118,4 @@ def update_board(title, board_id):
         UPDATE boards
         SET title = %s
         WHERE id = %s
-        """, (title,board_id))
+        """, (title, board_id))

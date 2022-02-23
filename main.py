@@ -1,7 +1,6 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session,jsonify
 from dotenv import load_dotenv
 import mimetypes
-
 import data_manager
 import queries
 from util import json_response
@@ -24,7 +23,6 @@ def index():
     return render_template('design.html')
 
 
-
 @app.route("/api/boards")
 @json_response
 def get_boards():
@@ -32,6 +30,7 @@ def get_boards():
     All the boards
     """
     return queries.get_boards()
+
 
 @app.route("/api/statuses")
 @json_response
@@ -42,21 +41,21 @@ def get_statuses():
     return queries.get_statuses()
 
 
+@app.route("/api/boards/cards/all/")
+def get_cards():
+    cards = queries.get_all_cards()
+    return jsonify(cards)
+
 
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
-    """
-    All cards that belongs to a board
-    :param board_id: id of the parent board
-    """
     return queries.get_cards_for_board(board_id)
 
 
-@app.route("/api/cards/create", methods=["POST"])
+@app.route("/api/cards/create", methods = ["POST"])
 @json_response
 def create_card_for_board():
-
     queries.create_card_for_board_status(request.json)
     return "card successfully created"
 
@@ -95,12 +94,12 @@ def login():
             return redirect(url_for('index'))
         else:
             return render_template('login_problem.html',
-                            username=session.get('username', 0),
-                            user_id=session.get('user_id', 0))
+                                   username = session.get('username', 0),
+                                   user_id = session.get('user_id', 0))
 
     return render_template('login.html',
-                            username=session.get('username', 0),
-                            user_id=session.get('user_id', 0))
+                           username = session.get('username', 0),
+                           user_id = session.get('user_id', 0))
 
 
 @app.route('/logout')
@@ -139,11 +138,11 @@ def registration():
 
 
 def main():
-    app.run(debug=True)
+    app.run(debug = True)
 
     # Serving the favicon
     with app.app_context():
-        app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
+        app.add_url_rule('/favicon.ico', redirect_to = url_for('static', filename = 'favicon/favicon.ico'))
 
 
 if __name__ == '__main__':

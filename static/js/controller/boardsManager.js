@@ -2,17 +2,19 @@ import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
+import{isEqual} from "../util.js";
 
+let liveBoards;
 export let boardsManager = {
     loadBoards: async function () {
-        const boards = await dataHandler.getBoards();
-        const statuses = await dataHandler.getStatuses();
+        const boards = await dataHandler.getBoards()
+        const statuses = await dataHandler.getStatuses().then(liveBoards = boards)
         for (let board of boards) {
             const boardBuilder = htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board, statuses);
             domManager.addChild(".board-container", content);
             cardsManager.loadCards(board['id']);
-            domManager.addEventListener(`span.board-title[data-boardId="${board['id']}"]`, 'click',renameBoard)
+            domManager.addEventListener(`span.board-title[data-boardId="${board['id']}"]`, 'click', renameBoard)
             domManager.addEventListener(
                 `button.board-toggle[data-boardId="${board['id']}"]`,
                 "click",
@@ -21,14 +23,23 @@ export let boardsManager = {
         }
     },
 };
-const reloadBoards = () => {
+
+
+export const boardSync = async () => {
+    let boards = await dataHandler.getBoards()
+    if (!isEqual(boards,liveBoards)) {
+        reloadBoards()
+    }
+}
+
+export const reloadBoards = () => {
     let root = document.querySelector(".board-container")
     root.innerHTML = ""
-    boardsManager.loadBoards()
+    boardsManager.loadBoards().then(console.log('reloaded boards'))
 }
 export let modalManager = {
     initNewBoardModal: function () {
-        let h1=document.querySelector('h1')
+        let h1 = document.querySelector('h1')
         let modal = document.createElement("div")
         h1.after(modal)
         modal.classList.add('new-board')
@@ -44,7 +55,7 @@ export let modalManager = {
         let textbox = document.querySelector('#board-title')
         domManager.addEventListener('#save-new-board', 'click', () => {
             let board = {"title": textbox.value}
-            textbox.value=""
+            textbox.value = ""
             document.querySelector(".modal.is-visible").classList.remove("is-visible");
             dataHandler.createNewBoard(board).then(reloadBoards)
 
@@ -74,17 +85,17 @@ function showHideButtonHandler(clickEvent) {
     if (state === "closed") {
         target.parentElement.parentElement.children[1].classList.toggle("hidden")
         target.dataset.state = "open"
-        target.textContent="Close"
-      // ADD "ADD NEW CARD" BUTTON TO BOARD:
+        target.textContent = "Close"
+        // ADD "ADD NEW CARD" BUTTON TO BOARD:
         //addNewCardButtonToBoard (board, boardId)
     } else if (state === "open") {
         target.parentElement.parentElement.children[1].classList.toggle("hidden")
         target.dataset.state = "closed"
-        target.textContent="Open"
+        target.textContent = "Open"
     }
 }
 
-function addNewCardButtonToBoard (board, boardId) {
+function addNewCardButtonToBoard(board, boardId) {
     const divForAddCard = document.createElement("div")
     divForAddCard.classList = "add-new-card"
     const addCardButton = document.createElement("button");
@@ -108,7 +119,9 @@ function addNewCardButtonToBoard (board, boardId) {
         for (const card of cardsToDelete) {
             card.remove();
         }
-        setTimeout(() => {cardsManager.loadCards(boardId)}, 100);
+        setTimeout(() => {
+            cardsManager.loadCards(boardId)
+        }, 100);
         addCardButton.previousElementSibling.value = "";
     })
 }
@@ -122,8 +135,9 @@ const renameBoard = (e) => {
     e.target.parentElement.prepend(input)
     e.target.classList.add('hidden')
     console.log(e.target.dataset.boardid)
-    button.addEventListener('click', ()=> {
-        let board = {'title' : input.value, 'board_id': e.target.dataset.boardid}
-        dataHandler.updateBoard(board).then(reloadBoards)})
+    button.addEventListener('click', () => {
+        let board = {'title': input.value, 'board_id': e.target.dataset.boardid}
+        dataHandler.updateBoard(board).then(reloadBoards)
+    })
 
 }
