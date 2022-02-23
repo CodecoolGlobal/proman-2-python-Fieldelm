@@ -27,6 +27,7 @@ def get_boards():
     return data_manager.execute_select(
         """
         SELECT * FROM boards
+        ORDER BY id
         ;
         """
     )
@@ -72,10 +73,10 @@ def create_card_for_board_status(card):
 
 def get_password_by_username(username):
     password = data_manager.execute_select(
-    """
-    SELECT password FROM users
-    WHERE username = %(username)s;"""
-    ,{"username": username}, False)
+        """
+        SELECT password FROM users
+        WHERE username = %(username)s;"""
+        , {"username": username}, False)
 
     return password
 
@@ -95,7 +96,7 @@ def get_id_by_name(cursor, name):
     SELECT id FROM users
     WHERE username LIKE %s
     """
-    cursor.execute(query,(name,))
+    cursor.execute(query, (name,))
     return cursor.fetchone()
 
 
@@ -107,3 +108,10 @@ def get_usernames():
         """
     )
 
+
+def update_board(title, board_id):
+    data_manager.execute_insert("""
+        UPDATE boards
+        SET title = %s
+        WHERE id = %s
+        """, (title,board_id))
