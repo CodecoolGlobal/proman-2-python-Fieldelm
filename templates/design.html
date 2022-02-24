@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="./static/css/modal.css">
 </head>
 <body>
+    <div class="header">
+        {% if username != 0 or username == None %}
+            <p class="login-info">You are logged in as <strong>{{ username }}</strong>
+                <a href="{{ url_for('logout') }}">
+                    <button>Log out</button>
+                </a></p>
+
+        {% else %}
+            <p class="login-info">You are NOT logged in &nbsp; &nbsp;
+                <a href="{{ url_for('login') }}">
+                    <button>Login</button>
+                </a>
+                <a href="{{ url_for('registration') }}">
+                    <button>Register</button>
+                </a></p>
+        {% endif %}
+    </div>
+
     <h1>ProMan</h1>
     <!-- Emmet: .board-container>section.board*3>.board-header>(span.board-title{Board $}+button.board-add{Add Card}+button.board-toggle>i.fas.fa-chevron-down)^.board-columns>((.board-column>.board-column-title{New}+.board-column-content>.card*5>(.card-remove>i.fas.fa-trash-alt^.card-title{Card $}))+(.board-column>.board-column-title{In Progress}+.board-column-content>.card*5>(.card-remove>i.fas.fa-trash-alt^.card-title{Card $}))+(.board-column>.board-column-title{Testing}+.board-column-content>.card*5>(.card-remove>i.fas.fa-trash-alt^.card-title{Card $}))+(.board-column>.board-column-title{Done}+.board-column-content>.card*5>(.card-remove>i.fas.fa-trash-alt^.card-title{Card $}))) -->
     <div class="board-container">
