@@ -42,6 +42,7 @@ export let boardsManager = {
 };
 
 
+
 export const boardSync = async () => {
     let boards = await dataHandler.getBoards()
     if (!isEqual(boards,liveBoards)) {

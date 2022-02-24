@@ -34,13 +34,15 @@ export let dataHandler = {
         card.title = cardTitle;
         apiPost('/api/cards/create', card);
     },
+    renameCard : async function (card){
+        return await apiPut("/api/update/card/", card)
     deleteCard: async function (cardId) {
         return await apiGet(`/api/cards/${cardId}/delete/`);
     },
 
-
     updateBoard: async function (board) {
         return await apiPut("/api/update/board/", board)
+
     }
 };
 
