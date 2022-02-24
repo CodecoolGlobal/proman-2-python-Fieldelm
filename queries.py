@@ -1,7 +1,6 @@
 import data_manager
 
 
-
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -33,6 +32,7 @@ def get_boards():
         """
     )
 
+
 def create_card(board_id, title):
     data_manager.execute_insert("""
     INSERT INTO cards (board_id, status_id, title, card_order)
@@ -41,7 +41,19 @@ def create_card(board_id, title):
 
 
 def get_statuses():
-    return data_manager.execute_select("""SELECT * FROM statuses""")
+    return data_manager.execute_select("""SELECT * FROM statuses
+    ORDER BY id""")
+
+
+def update_card_status(card_id, status_id,board_id):
+    return data_manager.execute_insert("""
+    UPDATE cards
+    SET status_id = %(status_id)s,
+    card_order=COALESCE((SELECT MAX(card_order)+1 FROM cards WHERE board_id=%(board_id)s AND status_id=%(status_id)s),1)
+    WHERE id=%(card_id)s
+    """, {'board_id':board_id,
+          'status_id':status_id,
+          'card_id':card_id})
 
 
 def create_board(title, creator_id):
@@ -51,7 +63,8 @@ def create_board(title, creator_id):
 
 
 def get_all_cards():
-    return data_manager.execute_select("""SELECT * FROM cards""")
+    return data_manager.execute_select("""SELECT * FROM cards
+    ORDER BY card_order""")
 
 
 def get_cards_for_board(board_id):
@@ -80,6 +93,7 @@ def create_card_for_board_status(card):
         }
     )
 
+
 def edit_card_title(id, title):
     data_manager.execute_insert(
         """UPDATE cards SET title = %(title)s
@@ -89,6 +103,7 @@ def edit_card_title(id, title):
             "title": title
         }
     )
+
 
 def delete_card(card_id):
     data_manager.execute_insert(

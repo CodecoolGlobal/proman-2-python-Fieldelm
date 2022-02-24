@@ -8,8 +8,11 @@ import {isEqual} from "../util.js";
 let liveCards;
 export let cardsManager = {
     loadCards: async function (boardId) {
-        const cards = await dataHandler.getCardsByBoardId(boardId);
+        let cards = await dataHandler.getCardsByBoardId(boardId);
         liveCards = await dataHandler.getAllCards()
+        cards=sortCards(cards)
+        console.log('cards')
+        console.log(cards)
         for (let card of cards) {
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
@@ -57,6 +60,11 @@ function deleteButtonHandler(clickEvent) {
         cardsManager.loadCards(boardId)
     }, 100);
 }
+
+function sortCards(cards) {
+        return cards.sort((a, b) => a['card_order'] > b['card_order'] ? 1 : -1)
+}
+
 function  updateTitle(card) {
 
         const oldTitleDiv = card.querySelector(".card-title")
@@ -66,6 +74,7 @@ function  updateTitle(card) {
         let newTitleInput = document.createElement("input");
         newTitleInput.value = oldTitle;
         card.appendChild(newTitleInput);
+        newTitleInput.classList.add("new-card-title")
         newTitleInput.addEventListener("keydown", ev => {
             if (ev.code === 'Enter'){
 

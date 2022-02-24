@@ -3,6 +3,7 @@ import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 import{isEqual} from "../util.js";
+import {initDragAndDrop} from "./dragDrop.js";
 
 let liveBoards;
 export let boardsManager = {
@@ -14,13 +15,14 @@ export let boardsManager = {
             const boardBuilder = htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board, statuses);
             domManager.addChild(".board-container", content);
-            cardsManager.loadCards(board['id']);
+            await cardsManager.loadCards(board['id']);
             domManager.addEventListener(`span.board-title[data-boardId="${board['id']}"]`, 'click', renameBoard)
             domManager.addEventListener(
                 `button.board-toggle[data-boardId="${board['id']}"]`,
                 "click",
                 showHideButtonHandler
             );
+            initDragAndDrop()
             domManager.addEventListener(
                 `button.board-add[data-boardId="${board['id']}"]`,
                 "click",

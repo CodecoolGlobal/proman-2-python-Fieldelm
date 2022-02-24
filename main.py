@@ -50,7 +50,12 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
-
+@app.route("/api/update/card-status/", methods = ['PUT'])
+def update_card_status():
+    card_id=request.json['card_id']
+    status_id=request.json['status_id']
+    board_id=request.json['board_id']
+    return jsonify(queries.update_card_status(card_id,status_id,board_id))
 @app.route("/api/update/card/", methods = ['PUT'])
 def update_card_title():
     id = request.json['id']

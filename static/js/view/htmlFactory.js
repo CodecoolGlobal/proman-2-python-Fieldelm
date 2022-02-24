@@ -26,12 +26,12 @@ function boardBuilder(board, columns) {
                 <button class="board-add" data-boardId="${board.id}">Add Card</button>
                 <button class="board-toggle" data-boardId="${board.id}" data-state="open">Close</button>
             </div>`
-    let section = `<section class="board" id="board${board.id}">${header}<div class="board-columns">`
+    let section = `<section class="board" id="board${board.id}">${header}<div class="board-columns" data-boardid="${board.id}">`
     for (let column of columns) {
         section = section + `
-                <div class="board-column">
+                <div class="board-column" data-statusid="${column.id}">
                     <div class="board-column-title">${column.title}</div>
-                    <div class="board-column-content" data-boardId="${board.id}" data-statusId id="board${board.id}column${column.id}">
+                    <div class="board-column-content" data-boardId="${board.id}"  id="board${board.id}column${column.id}">
                         </div>
                     </div>`
     }
@@ -40,7 +40,7 @@ function boardBuilder(board, columns) {
 
 function cardBuilder(card) {
 
-    return `<div class="card" id="card${card.id}" data-cardid="${card.id}" data-id="${card.id}">
+    return `<div class="card" id="card${card.id}" data-cardid="${card.id}" data-id="${card.id}" data-order="${card.card_order}">
             <div class="card-remove" data-id="${card.id}"><i class="fas fa-trash-alt"></i></div>
             <div class="card-title">${card.title}</div>
             </div>`
