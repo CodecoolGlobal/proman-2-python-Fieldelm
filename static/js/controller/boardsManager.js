@@ -26,6 +26,11 @@ export let boardsManager = {
                 "click",
                 createCardHandler
              );
+            domManager.addEventListener(
+                `button.board-remove[data-boardId="${board['id']}"]`,
+                "click",
+                deleteBoard
+            )
         }
     },
     manualRefresh: function (){
@@ -40,7 +45,6 @@ export let boardsManager = {
         container.before(button)
     }
 };
-
 
 
 export const boardSync = async () => {
@@ -144,7 +148,7 @@ function createCardHandler(clickEvent) {
             saveCardButton.remove();
         })
     } else {
-        myHeader.querySelector(".add-new-card-button").remove();
+        //myHeader.querySelector(".add-new-card-button").remove();
         myHeader.querySelector("input").remove();
     }
 }
@@ -162,5 +166,10 @@ const renameBoard = (e) => {
         let board = {'title': input.value, 'board_id': e.target.dataset.boardid}
         dataHandler.updateBoard(board).then(reloadBoards)
     })
+}
 
+function deleteBoard(e){
+    console.log(e.currentTarget)
+    let boardId = e.currentTarget.dataset.boardid
+    dataHandler.deleteBoard(boardId)
 }
