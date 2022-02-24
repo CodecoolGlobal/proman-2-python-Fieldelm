@@ -130,7 +130,7 @@ function createCardHandler(clickEvent) {
     saveCardButton.setAttribute("data-board-id", `${boardId}`);
 
     // IF "ADD CARD" IS NOT OPEN:
-    if (myButton.parentElement.children.length <= 3) {
+    if (myButton.parentElement.children.length <= 4) {
         myHeader.appendChild(inputField);
         myHeader.appendChild(saveCardButton);
 
@@ -173,6 +173,8 @@ const renameBoard = (e) => {
 function deleteBoard(e){
     console.log(e.currentTarget)
     let boardId = e.currentTarget.dataset.boardid
+    let targetBoard=document.querySelector(`.board#board${boardId}`)
+    targetBoard.remove()
     dataHandler.deleteBoard(boardId)
     reloadBoards()
 }

@@ -36,8 +36,8 @@ def get_boards():
 def create_card(board_id, title):
     data_manager.execute_insert("""
     INSERT INTO cards (board_id, status_id, title, card_order)
-     VALUES (%(bo_id)s, 1, %(ttl)s,(SELECT MAX(card_order)+1 FROM cards WHERE board_id = %(bo_id)s))""",
-                                ({'bo_id': board_id, 'ttl': title}))
+     VALUES (%(board_id)s, 1, %(title)s,(SELECT MAX(card_order)+1 FROM cards WHERE board_id = %(board_id)s))""",
+                                ({'board_id': board_id, 'title': title}))
 
 
 def get_statuses():
