@@ -130,7 +130,7 @@ function createCardHandler(clickEvent) {
     saveCardButton.setAttribute("data-board-id", `${boardId}`);
 
     // IF "ADD CARD" IS NOT OPEN:
-    if (myButton.parentElement.children.length <= 4) {
+    if (myButton.parentElement.children.length <= 5) {
         myHeader.appendChild(inputField);
         myHeader.appendChild(saveCardButton);
 
@@ -150,7 +150,7 @@ function createCardHandler(clickEvent) {
             saveCardButton.remove();
         })
     } else {
-        //myHeader.querySelector(".add-new-card-button").remove();
+        myHeader.querySelector(".add-new-card-button").remove();
         myHeader.querySelector("input").remove();
     }
 }
