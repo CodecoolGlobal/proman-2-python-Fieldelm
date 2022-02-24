@@ -22,6 +22,17 @@ export let boardsManager = {
             );
         }
     },
+    manualRefresh: function (){
+        reloadBoards()
+    },
+    initRefreshButton:function (){
+        let container = document.querySelector(".board-container")
+        let button=document.createElement('button')
+        button.textContent="Refresh"
+        button.classList.add("refresh")
+        button.addEventListener('click',this.manualRefresh)
+        container.before(button)
+    }
 };
 
 
