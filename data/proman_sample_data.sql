@@ -20,7 +20,7 @@ SET default_with_oids = false;
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS cards CASCADE ;
 
 ---
 --- create tables
@@ -83,10 +83,10 @@ INSERT INTO users (username,password) VALUES ('test@test.com', '$2a$12$Wbe4iNNr8
 ---
 
 ALTER TABLE ONLY cards
-    ADD CONSTRAINT fk_cards_board_id FOREIGN KEY (board_id) REFERENCES boards(id);
+    ADD CONSTRAINT fk_cards_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY cards
-    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id);
+    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY boards
-    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (creator_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE;

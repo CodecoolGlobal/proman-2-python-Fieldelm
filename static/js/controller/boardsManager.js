@@ -174,4 +174,5 @@ function deleteBoard(e){
     console.log(e.currentTarget)
     let boardId = e.currentTarget.dataset.boardid
     dataHandler.deleteBoard(boardId)
+    reloadBoards()
 }
