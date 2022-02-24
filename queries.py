@@ -73,13 +73,13 @@ def create_card_for_board_status(card):
             "title": card['title']
         }
     )
-def edit_card_title(card, new_title):
+def edit_card_title(id, title):
     data_manager.execute_insert(
         """UPDATE cards SET title = %(title)s
         WHERE id = %(card_id)s;""",
         {
-            "card_id" : card['cardId'],
-            'title': new_title
+            "card_id": id,
+            "title": title
         }
     )
 

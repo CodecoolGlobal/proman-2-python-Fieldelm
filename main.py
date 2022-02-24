@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from dotenv import load_dotenv
 import mimetypes
 
@@ -58,7 +58,8 @@ def get_cards_for_board(board_id: int):
 def update_card_title():
     id = request.json['id']
     title = request.json['title']
-    queries.edit_card_title(title, id)
+    return jsonify(queries.edit_card_title(id, title))
+
 
 
 @app.route("/api/cards/create", methods=["POST"])

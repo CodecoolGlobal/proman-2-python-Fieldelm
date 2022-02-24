@@ -1,6 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
+import {reloadBoards} from "./boardsManager.js";
 
 export let cardsManager = {
     loadCards: async function (boardId) {
@@ -18,6 +19,7 @@ export let cardsManager = {
                     if(e.currentTarget.childNodes.length===5) {
                         updateTitle(e.currentTarget)
                         console.log(e.currentTarget.childNodes.length)
+
                     }
                 }
 
@@ -49,8 +51,9 @@ function  updateTitle(card) {
             if (ev.code === 'Enter'){
 
                 oldTitleDiv.innerText = newTitleInput.value
-                let renamedCard = {"title" : newTitleInput.value, 'id': card.id}
-
+                let cardObj = {"title" : newTitleInput.value, "id": card.dataset.cardid}
+                dataHandler.renameCard(cardObj)
+                reloadBoards()
             }
         })
 

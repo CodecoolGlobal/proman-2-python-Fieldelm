@@ -20,7 +20,7 @@ export let boardsManager = {
         }
     },
 };
-const reloadBoards = () => {
+export const reloadBoards = () => {
     let root = document.querySelector(".board-container")
     root.innerHTML = ""
     boardsManager.loadBoards()
