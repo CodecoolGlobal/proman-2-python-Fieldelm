@@ -8,6 +8,7 @@ let liveBoards;
 export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
+        liveBoards=boards
         const statuses = await dataHandler.getStatuses();
         for (let board of boards) {
             const boardBuilder = htmlFactory(htmlTemplates.board);
