@@ -47,7 +47,7 @@ def get_cards_for_board(board_id):
         """
         SELECT * FROM cards
         WHERE cards.board_id = %(board_id)s
-        ;
+        ORDER BY card_order;
         """
         , {"board_id": board_id})
 
@@ -58,7 +58,8 @@ def create_card_for_board_status(card):
     data_manager.execute_insert(
         """
         INSERT INTO cards (board_id, status_id, title, card_order) 
-        VALUES (%(board_id)s, %(status_id)s, %(title)s, COALESCE((SELECT MAX(card_order)+1 FROM cards WHERE board_id=%(board_id)s AND status_id=%(status_id)s), 1));
+        VALUES (%(board_id)s, %(status_id)s, %(title)s, 
+            COALESCE((SELECT MAX(card_order)+1 FROM cards WHERE board_id=%(board_id)s AND status_id=%(status_id)s), 1));
         """,
         {
             "board_id": card['boardId'],

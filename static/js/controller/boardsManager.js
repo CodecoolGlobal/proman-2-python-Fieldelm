@@ -107,8 +107,6 @@ function createCardHandler(clickEvent) {
         saveCardButton.addEventListener('click', (e) => {
             const statusId = 1;
             const title = inputField.value;
-            console.log(title)
-            console.log(boardId)
             dataHandler.createNewCard(title, boardId, statusId);
             let cardsToDelete = myButton.parentElement.parentElement.querySelectorAll(".card")
             for (const card of cardsToDelete) {

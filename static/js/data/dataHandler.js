@@ -28,7 +28,7 @@ export let dataHandler = {
         card.boardId = boardId;
         card.statusId = statusId;
         card.title = cardTitle;
-        apiPost_2('/api/cards/create', card);
+        apiPost('/api/cards/create', card);
     },
     deleteCard: async function (cardId) {
         return await apiGet(`/api/cards/${cardId}/delete/`);
@@ -55,18 +55,6 @@ async function apiPost(url, payload) {
 
 }
 
-async function apiPost_2(url, payload) {
-  let response = await fetch(url,{
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-      'Content-Type': 'application/json'
-    }});
-  if(response.status === 200){
-    let data = response.json();
-    console.log(data);
-  }
-}
 
 async function apiDelete(url) {
 }
