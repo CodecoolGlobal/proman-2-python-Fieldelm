@@ -45,6 +45,10 @@ export let dataHandler = {
     updateBoard: async function (board) {
         return await apiPut("/api/update/board/", board)
     },
+
+    deleteBoard: async function (boardId){
+        return await apiDelete(`/api/boards/${boardId}/delete/`)
+    }
 }
 
 
@@ -65,11 +69,15 @@ async function apiPost(url, payload) {
     }).then(res => {
         console.log("Request complete! response:", res);
     })
-
 }
 
-
 async function apiDelete(url) {
+    let response = await fetch(url, {
+        method: 'DELETE',
+        headers: {'Content-type': 'application/json'}
+
+    });
+
 }
 
 async function apiPut(url, payload) {
@@ -78,9 +86,10 @@ async function apiPut(url, payload) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     }).then(res => {
-        console.log("Request complete! response:", res);
-    })
+        console.log("Request complete! response:", res)
+    });
 }
+
 
 async function apiPatch(url) {
 }

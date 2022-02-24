@@ -98,11 +98,8 @@ def edit_card_title(id, title):
     data_manager.execute_insert(
         """UPDATE cards SET title = %(title)s
         WHERE id = %(card_id)s;""",
-        {
-            "card_id": id,
-            "title": title
-        }
-    )
+        {"card_id": id,
+            "title": title})
 
 
 def delete_card(card_id):
@@ -163,3 +160,8 @@ def update_board(title, board_id):
         SET title = %s
         WHERE id = %s
         """, (title, board_id))
+
+def delete_board(board_id):
+    data_manager.execute_insert("""
+    DELETE FROM boards 
+    WHERE id = %s""", (board_id,))

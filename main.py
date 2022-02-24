@@ -44,6 +44,11 @@ def get_cards():
     return jsonify(cards)
 
 
+@app.route("/api/boards/<int:board_id>/delete/", methods =['DELETE'])
+def delete_board(board_id: int):
+    queries.delete_board(board_id)
+
+
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
@@ -79,7 +84,6 @@ def delete_card_(card_id: int):
     :param board_id: id of the parent board
     """
     return queries.delete_card(card_id)
-
 
 
 @app.route("/api/create/board/", methods = ['POST'])

@@ -20,7 +20,6 @@ export let cardsManager = {
             domManager.addEventListener(
                 `#card${card.id}`,
                 "click", (e)=>{
-                    console.log(e.currentTarget)
                     if(e.currentTarget.childNodes.length===5) {
                         updateTitle(e.currentTarget)
                         console.log(e.currentTarget.childNodes.length)
@@ -37,9 +36,6 @@ export let cardsManager = {
 };
 export const cardSync = async () => {
     let newCards = await dataHandler.getAllCards()
-    console.log(isEqual(newCards, liveCards))
-    console.log(newCards)
-    console.log(liveCards)
     if (!isEqual(newCards, liveCards)) {
         reloadBoards()
     }
@@ -69,7 +65,6 @@ function  updateTitle(card) {
 
         const oldTitleDiv = card.querySelector(".card-title")
         const oldTitle = oldTitleDiv.innerText
-        console.log(oldTitleDiv)
         oldTitleDiv.innerText = ""
         let newTitleInput = document.createElement("input");
         newTitleInput.value = oldTitle;
