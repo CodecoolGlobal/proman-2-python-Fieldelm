@@ -15,6 +15,10 @@ export let dataHandler = {
     getCardsByBoardId: async function (boardId) {
         return await apiGet(`/api/boards/${boardId}/cards/`);
     },
+    getAllCards: async function () {
+       return await apiGet(`/api/boards/cards/all/`);
+    },
+
     getCard: async function (cardId) {
         // the card is retrieved and then the callback function is called with the card
     },
@@ -32,6 +36,13 @@ export let dataHandler = {
     },
     renameCard : async function (card){
         return await apiPut("/api/update/card/", card)
+    deleteCard: async function (cardId) {
+        return await apiGet(`/api/cards/${cardId}/delete/`);
+    },
+
+    updateBoard: async function (board) {
+        return await apiPut("/api/update/board/", board)
+
     }
 };
 
@@ -54,6 +65,7 @@ async function apiPost(url, payload) {
     })
 
 }
+
 
 async function apiDelete(url) {
 }

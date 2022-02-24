@@ -28,6 +28,7 @@ def get_boards():
     return data_manager.execute_select(
         """
         SELECT * FROM boards
+        ORDER BY id
         ;
         """
     )
@@ -49,12 +50,16 @@ def create_board(title, creator_id):
     """, (title, creator_id))
 
 
+def get_all_cards():
+    return data_manager.execute_select("""SELECT * FROM cards""")
+
+
 def get_cards_for_board(board_id):
     matching_cards = data_manager.execute_select(
         """
         SELECT * FROM cards
         WHERE cards.board_id = %(board_id)s
-        ;
+        ORDER BY card_order;
         """
         , {"board_id": board_id})
 
@@ -65,7 +70,8 @@ def create_card_for_board_status(card):
     data_manager.execute_insert(
         """
         INSERT INTO cards (board_id, status_id, title, card_order) 
-        VALUES (%(board_id)s, %(status_id)s, %(title)s, (SELECT MAX(card_order)+1 FROM cards WHERE board_id=%(board_id)s AND status_id=%(status_id)s));
+        VALUES (%(board_id)s, %(status_id)s, %(title)s, 
+            COALESCE((SELECT MAX(card_order)+1 FROM cards WHERE board_id=%(board_id)s AND status_id=%(status_id)s), 1));
         """,
         {
             "board_id": card['boardId'],
@@ -73,6 +79,7 @@ def create_card_for_board_status(card):
             "title": card['title']
         }
     )
+
 def edit_card_title(id, title):
     data_manager.execute_insert(
         """UPDATE cards SET title = %(title)s
@@ -83,14 +90,26 @@ def edit_card_title(id, title):
         }
     )
 
+def delete_card(card_id):
+    data_manager.execute_insert(
+        """
+        DELETE FROM cards 
+        WHERE id=%(card_id)s 
+        """,
+        {
+            "card_id": card_id
+        }
+    )
+
+
 # FOR USER REGISTRATION AND LOGIN:
 
 def get_password_by_username(username):
     password = data_manager.execute_select(
-    """
-    SELECT password FROM users
-    WHERE username = %(username)s;"""
-    ,{"username": username}, False)
+        """
+        SELECT password FROM users
+        WHERE username = %(username)s;"""
+        , {"username": username}, False)
 
     return password
 
@@ -110,7 +129,7 @@ def get_id_by_name(cursor, name):
     SELECT id FROM users
     WHERE username LIKE %s
     """
-    cursor.execute(query,(name,))
+    cursor.execute(query, (name,))
     return cursor.fetchone()
 
 
@@ -122,3 +141,10 @@ def get_usernames():
         """
     )
 
+
+def update_board(title, board_id):
+    data_manager.execute_insert("""
+        UPDATE boards
+        SET title = %s
+        WHERE id = %s
+        """, (title, board_id))
