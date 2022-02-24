@@ -16,7 +16,7 @@ export let dataHandler = {
         return await apiGet(`/api/boards/${boardId}/cards/`);
     },
     getAllCards: async function () {
-       return await apiGet(`/api/boards/cards/all/`);
+        return await apiGet(`/api/boards/cards/all/`);
     },
 
     getCard: async function (cardId) {
@@ -34,17 +34,19 @@ export let dataHandler = {
         card.title = cardTitle;
         apiPost('/api/cards/create', card);
     },
-    renameCard : async function (card){
+    renameCard: async function (card) {
         return await apiPut("/api/update/card/", card)
+    }
+    ,
+
     deleteCard: async function (cardId) {
         return await apiGet(`/api/cards/${cardId}/delete/`);
     },
-
     updateBoard: async function (board) {
         return await apiPut("/api/update/board/", board)
+    },
+}
 
-    }
-};
 
 async function apiGet(url) {
     let response = await fetch(url, {
