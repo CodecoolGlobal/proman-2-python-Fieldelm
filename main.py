@@ -155,7 +155,7 @@ def registration():
             if user_input_username not in user_list:
                 queries.add_new_user(user_input_username, hashed_password)
                 session['username'] = request.form['username']
-                user_id = queries.get_id_by_name(name = session['username'])['id']
+                session['user_id'] = queries.get_id_by_name(name=request.form['username'])['id']
                 return redirect(url_for('index'))
             else:
                 alert_message = "taken"
