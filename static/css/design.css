@@ -1,9 +1,9 @@
 :root {
     --border-radius: 3px;
-    --status-1: #590000;
-    --status-2: #594300;
-    --status-3: #525900;
-    --status-4: #085900;
+    --status-1: #bcf36c;
+    --status-2: #8bbe5b;
+    --status-3: #42a460;
+    --status-4: #378647;
 }
 
 .new-board {
@@ -13,10 +13,20 @@
 }
 
 body {
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
-    /*background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/gplaypattern.png);*/
-    /*background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/cartographer.png);*/
-    /*background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/brushed_alu_dark.png);*/
+    color: white;
+     /* The image used */
+    background-image: url("leaves-background.jpg");
+    /*background-image: url("leaf-background.jpg");*/
+  /*background-image: url("teal_mountains.jpg");*/
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    /*background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);*/
     font-family: sans-serif;
 }
 
@@ -25,6 +35,10 @@ h1, .board-title, .board-column-title {
 }
 
 h1 {
+    /*background: rgba(0, 0, 0, 0.5);*/
+    /*transform: translateX(50%);*/
+    /*left: 50%;*/
+    /*width: 50%;*/
     text-align: center;
     font-size: 4em;
     letter-spacing: 5px;
@@ -32,12 +46,13 @@ h1 {
 }
 
 button {
-    background: #222;
+    background: #1b3830;
     color: #fff;
     border: none;
     font-size: 14px;
     font-family: sans-serif;
-    padding: 4px 10px;
+    padding: 6px 12px;
+    border-radius: 3px;
 }
 
 .board-container {
@@ -47,15 +62,16 @@ button {
 
 section.board {
     margin: 20px;
-    border: aliceblue;
-    background: #ffffff90;
-    border-radius: 3px;
+    border: black;
+    /*border-style: solid;*/
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
 
 }
 
 .board-header {
     height: 50px;
-    background: #fff;
+    background: black;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     margin: 1rem;
 }
@@ -114,8 +130,10 @@ section.board {
 
 .card {
     background: #222;
-    color: #fff;
+    color: black;
     border-radius: var(--border-radius);
+    border-style: solid;
+    border-width: 1px;
     margin: 4px 0;
     padding: 4px;
 }

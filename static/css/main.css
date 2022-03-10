@@ -23,17 +23,18 @@ body, html {
 }
 
 .background {
-  /* The image used */
-  /*background-image: url("some-image.jpg");*/
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    background-image: url("leaves-background.jpg");
+  /*background-image: url("teal_mountains.jpg");*/
 
   /* Full height */
   height: 100%;
 
   /* Center and scale the image nicely */
-  /*background-position: center;*/
-  /*background-repeat: no-repeat;*/
-  /*background-size: cover;*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+    /*background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);*/
+    font-family: sans-serif;
 }
 
 .login {
